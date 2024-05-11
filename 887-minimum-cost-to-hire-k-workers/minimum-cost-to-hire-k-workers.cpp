@@ -25,7 +25,7 @@ public:
             }
             
             if (pq.size() == k)
-                res = min(res, (double)sum / v[i].first * v[i].second);
+                res = min(res, (double)sum * v[i].second/ v[i].first);
         }
         
         return res;
