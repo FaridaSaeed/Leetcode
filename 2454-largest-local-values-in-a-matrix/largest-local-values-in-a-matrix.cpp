@@ -7,13 +7,15 @@ public:
         {
             for(int j=0;j<n-2;j++)
             {
+                int mx = 0;
                 for(int k=i;k<i+3;k++)
                 {
                     for(int l=j;l<j+3;l++)
                     {
-                        maxLocal[i][j]= max(maxLocal[i][j],grid[k][l]);
+                        mx = max(mx,grid[k][l]);
                     }
                 }
+                maxLocal[i][j] = mx;
             }
         } 
         return maxLocal;
