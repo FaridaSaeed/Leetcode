@@ -35,7 +35,6 @@ public:
                     memset(vis,0,sizeof vis);
                     mxx = 0;
                     dfs(i,j,0);
-                    cout<<mxx<<' ';
                     mx  = max(mx,mxx);
                 }
             }
