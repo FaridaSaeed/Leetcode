@@ -18,9 +18,6 @@ public:
             root->right= removeLeafNodes(root->right,target);
         if(root->left==NULL && root->right==NULL && root->val==target)
         {
-
-            delete root->left;
-            delete root->right;
             root = NULL;
             delete root;
         }
