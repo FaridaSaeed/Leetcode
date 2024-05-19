@@ -10,22 +10,12 @@ public:
         mp['D'] = 500;
         mp['M'] = 1000;
         int ans = 0,i;
-        for(i=0;i<s.size()-1;i+=2)
+        for(i=0;i<s.size();i++)
         {
-            if(s[i]=='I' && s[i+1]=='V')ans+=4;
-            else if(s[i]=='I' && s[i+1]=='X')ans+=9;
-            else if(s[i]=='X' && s[i+1]=='L')ans+=40;
-            else if(s[i]=='X' && s[i+1]=='C')ans+=90;
-            else if(s[i]=='C' && s[i+1]=='D')ans+=400;
-            else if(s[i]=='C' && s[i+1]=='M')ans+=900;
-            else
-            {
-                ans+=mp[s[i]];
-                i--;
-            }
-
+            if(i+1<s.size() && mp[s[i]]< mp[s[i+1]])
+                ans-=mp[s[i]];
+            else ans+=mp[s[i]];
         }
-        if(i==s.size()-1)ans+=mp[s[i]];
         return ans;
     }
 };
