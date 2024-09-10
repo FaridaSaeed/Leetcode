@@ -1,12 +1,12 @@
 class Solution {
 public:
-    set<vector<int>>ans;
+    vector<vector<int>>ans;
     vector<int>res;
     void backtrack(vector<int>& candidates, int target,int ind)
     {
         if(target==0)
         {
-            ans.insert(res);
+            ans.push_back(res);
             return;
         }
         int n = candidates.size();
@@ -23,8 +23,6 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         sort(candidates.begin(),candidates.end());
         backtrack(candidates,target,0);
-        vector<vector<int>>fin;
-        for(auto i:ans)fin.push_back(i);
-        return fin;
+        return ans;
     }
 };
