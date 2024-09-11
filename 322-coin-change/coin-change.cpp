@@ -11,8 +11,8 @@ public:
         int &ret = mem[ind][amount];
         if(~ret)return ret;
         ret = 1e9;
-        if(amount>=coins[ind])ret = min(ret,1+dp(ind,amount-coins[ind],coins));
         ret = min(ret,dp(ind+1,amount,coins));
+        if(amount>=coins[ind])ret = min(ret,1+dp(ind,amount-coins[ind],coins));
         return ret;
 
     }
