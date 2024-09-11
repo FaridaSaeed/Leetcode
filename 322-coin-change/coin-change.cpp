@@ -1,28 +1,24 @@
-const int N = 15,M = 1e5;
-int mem[N][M];
-int n;
 class Solution {
-public:
-    int dp(int ind,int amount,vector<int>& coins)
-    {
-        if(amount==0)
-            return 0;
-        int &ret = mem[ind][amount];
-        if(~ret)return ret;
-        ret = 1e9;
-        for(int i=0;i<n;i++)
-        {
-            if(amount>=coins[ind])ret = min(ret,1+dp(ind,amount-coins[ind],coins));
-            if(i+1<n)
-                ret = min(ret,dp(i+1,amount,coins));
-        }
-        return ret;
-
+public:    
+    int dp[12 + 1][10000 + 1];
+    
+    int findLowestCoins(vector<int> &coins, int cur, int amount) {
+        if (cur == coins.size() || amount <= 0)
+            return (amount == 0) ? 0 : INT_MAX - 1;   
+        
+        if (dp[cur][amount] != -1)
+            return dp[cur][amount];
+        
+        int res = -1;
+        int takeCoin = 1 + findLowestCoins(coins, cur + 0, amount - coins[cur]);
+        int doNotTakeCoin = 0 + findLowestCoins(coins, cur + 1, amount - 0);
+        dp[cur][amount] = res = min(takeCoin, doNotTakeCoin);
+        return dp[cur][amount] = res;
     }
+    
     int coinChange(vector<int>& coins, int amount) {
-        n = coins.size();
-        memset(mem,-1,sizeof mem);
-        int ans = dp(0,amount,coins);
-        return (ans>=1e9?-1:ans);
+        memset(dp, -1, sizeof(dp));
+        int res = findLowestCoins(coins, 0, amount);
+        return (res == INT_MAX - 1 ) ? -1 : res;
     }
 };
