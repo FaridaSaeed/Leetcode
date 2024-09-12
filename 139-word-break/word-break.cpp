@@ -4,7 +4,7 @@ public:
     set<string> word ;
     string s;
 
-    int dp[20020];
+    int dp[305];
 
     bool rec(int lev ) {
         if (lev == len) {
