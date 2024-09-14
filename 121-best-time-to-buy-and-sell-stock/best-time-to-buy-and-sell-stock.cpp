@@ -6,14 +6,10 @@ public:
         while(l<=r && r<n)
         {
             if(prices[r]<prices[l])
-            {
                 l = r;
-                r++;
-            }
-            else {
+            else
                 mx = max(mx,prices[r]-prices[l]);
-                r++;
-            }
+            r++;
         } 
         return mx;
     }
