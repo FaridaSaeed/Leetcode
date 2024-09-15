@@ -1,22 +1,24 @@
-const int N = 1e4+5,M = 1e3+5;
-int mem[N];
-int n;
-int dp(int ind,int jmp,vector<int>& nums)
-{
-    if(ind>=n-1)return 0;
-    int &ret = mem[ind];
-    if(~ret)return ret;
-    ret = 1e9;
-    for(int i=1;i<=jmp;i++)
-        if(ind+i<n)
-            ret = min(ret,1+dp(ind+i,nums[ind+i],nums));
-    return ret;
-}
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        memset(mem,-1,sizeof mem);
-        n = nums.size();   
-        return dp(0,nums[0],nums);
+        if (nums.size() <= 1) return 0;
+        
+        int n = nums.size();
+        int mx = 0;
+        for(int i= 0;i<n-1;i++)
+        {
+            if(i<=mx && i+nums[i]>=mx)mx = i+nums[i];
+            nums[i] = mx;
+        }
+        
+        int currentIndex = 0;
+        int jumps = 0;
+        
+        while (currentIndex < nums.size() - 1) {
+            ++jumps;
+            currentIndex = nums[currentIndex];
+        }
+        
+        return jumps;
     }
 };
