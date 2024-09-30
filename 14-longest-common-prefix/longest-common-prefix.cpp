@@ -3,6 +3,7 @@ public:
     string longestCommonPrefix(vector<string>& strs) {
         unordered_map<string,int>mp;
         int mx = 0;
+        int n = strs.size();
         string ans;
         for(auto str:strs)
         {
@@ -11,14 +12,11 @@ public:
             {
                 s+=i;
                 mp[s]++;
-            }
-        }
-        int n = strs.size();
-        for(auto i:mp)
-        {
-            if(i.second==n && i.first.size()>mx){
-                ans = i.first;
-                mx = i.first.size();
+                if(mp[s]==n && s.size()>mx)
+                {
+                    mx = s.size();
+                    ans = s;
+                }
             }
         }
         return ans;
