@@ -8,9 +8,7 @@ public:
         v.push_back(x);
         for(int i=1;i<nums.size();i++)
         {
-            long long sm = nums[i];
-            sm-=x;
-            if(sm==1)
+            if(nums[i]-1 == x)
             {
                 x = nums[i];
                 v.push_back(x);
