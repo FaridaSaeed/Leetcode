@@ -10,6 +10,6 @@ public:
             else if(nums[mid]>target)r = mid;
             else return mid;
         }
-        return l+1;
+        return r;
     }
 };
