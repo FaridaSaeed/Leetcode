@@ -11,36 +11,30 @@
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        if(left==right)return head;
-        ListNode* tmp = head;
-        int ind = 1;
-        while(tmp!=NULL && tmp->next!=NULL && ind+1<left)
-        {
-            tmp = tmp->next;
-            ind++;
+        if(!head->next) return head;
+        if(left==right) return head;
+
+        ListNode *l1=new ListNode(0), *l2=head;
+        l1->next=head;
+        head=l1;
+        int k = right-left+1;
+
+        while(--left){
+            l1=l2;
+            l2=l2->next;
         }
-        ListNode* tmp2 = tmp;
-        deque<int>s;
-        if(left==1)s.push_back(tmp->val);
-        while(tmp2->next!=NULL && ind<right)
-        {
-            tmp2 = tmp2->next;
-            s.push_front(tmp2->val);
-            ind++;
+
+        ListNode *prev=NULL, *curr=l2, *front=NULL;
+        while(k--){
+            front = curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=front;
         }
-        ListNode* res =new ListNode(s[0]);
-        ListNode* tmpres = res;
-        for(int i=1;i<s.size();i++)
-        {
-            tmpres->next = new ListNode(s[i]);
-            tmpres = tmpres->next;
-        }
-        if(tmp2!=NULL && tmp2->next!=NULL)
-            tmpres->next = tmp2->next;
-        
-        if(left==1)head = res;
-        else
-            tmp->next = res;
-        return head;
+
+        l1->next=prev;
+        l2->next=curr;
+
+        return head->next;
     }
 };
