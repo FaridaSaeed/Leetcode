@@ -6,6 +6,7 @@ public:
     bool cycled;
     void dfs_cycled(int node)
     {
+        
         for (auto i: adj[node] )
         {
             if (parent[i])
