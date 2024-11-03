@@ -6,7 +6,7 @@ public:
         int l = 0 , r = n*m-1, mid;
         while(l<=r)
         {
-            mid = l+(r-l)/2;
+            mid = (r+l+1)/2;
             int elem = matrix[mid/m][mid%m];
             if(elem<target) l = mid+1;
             else if(elem>target)r = mid-1;
