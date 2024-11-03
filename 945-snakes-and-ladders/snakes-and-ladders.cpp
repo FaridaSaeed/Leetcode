@@ -29,7 +29,6 @@ public:
         vector<int>lvl(n*n+1,-1);
         q.push(1);
         lvl[1] = 0;
-        for(auto i:cells)cout<<i<<' ';
         while(!q.empty())
         {
             int curr = q.front();
@@ -37,7 +36,6 @@ public:
             int next = curr+1;
             for(;next<=min(curr+6,n*n);next++)
             {
-                
                 if(lvl[cells[next]]==-1 || lvl[curr]+1<lvl[cells[next]])
                 {
                     lvl[cells[next]] = lvl[curr]+1;
@@ -45,8 +43,6 @@ public:
                 }
             }
         }
-        cout<<'\n';
-        for(auto i:lvl)cout<<i<<' ';
         return lvl[n*n];
     }
 };
