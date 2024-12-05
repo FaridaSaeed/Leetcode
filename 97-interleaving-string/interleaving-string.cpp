@@ -1,36 +1,35 @@
-const int N = 205;
-int dp[N][N][N];
 class Solution {
 public:
-    int n,m,h;
-    string st1,st2,st3;
-    bool solve(int i, int j, int k) {
-        if (i == n && j == m && k == h) return true;
-        int &ret = dp[i][j][k];
-        if (~ret) return ret;
+    bool solve(int i, int j, int k, vector<vector<vector<int>>>& dp, string s1,
+               string s2, string s3) {
+        if ((i == s1.length() && j == s2.length() && k == s3.length())) {
+            return true;
+        }
+
+        if (dp[i][j][k] != -1) {
+            return dp[i][j][k];
+        }
+
         bool result = false;
-        if (i < n && st1[i] == st3[k]) {
-            result = result || solve(i + 1, j, k + 1);
+        if (i < s1.length() && s1[i] == s3[k]) {
+            result = result || solve(i + 1, j, k + 1, dp, s1, s2, s3);
         }
 
-        if (j < m && st2[j] == st3[k]) {
-            result = result || solve(i, j + 1, k + 1);
+        if (j < s2.length() && s2[j] == s3[k]) {
+            result = result || solve(i, j + 1, k + 1, dp, s1, s2, s3);
         }
 
-        return ret = result;
+        return dp[i][j][k] = result;
     }
 
     bool isInterleave(string s1, string s2, string s3) {
-        memset(dp,-1,sizeof dp);
-        n = s1.size();
-        m = s2.size();
-        h = s3.size();
-        st1 = s1;
-        st2 = s2;
-        st3 = s3;
-        if (n+m != h) {
+        if (s1.length() + s2.length() != s3.length()) {
             return false;
         }
-        return solve(0, 0, 0);
+        vector<vector<vector<int>>> dp(
+            s1.length() + 1,
+            vector<vector<int>>(s2.length() + 1,
+                                vector<int>(s3.length() + 1, -1)));
+        return solve(0, 0, 0, dp, s1, s2, s3);
     }
 };
