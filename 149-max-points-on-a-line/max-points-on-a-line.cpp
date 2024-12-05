@@ -1,7 +1,7 @@
 class Solution {
 public:
     int maxPoints(vector<vector<int>>& points) {
-        //sort(points.begin(),points.end());
+        sort(points.begin(),points.end());
         int n = points.size();
         int mx = 1;
         for(int i=0;i<n;i++)
