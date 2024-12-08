@@ -25,16 +25,15 @@ public:
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if (lists.empty()) return nullptr;
-        if(lists.size()==1)return lists[0];
-        return divideAndConquer(lists);
+        return divideAndConquer(lists, 0, lists.size() - 1);
     }
 
-    ListNode* divideAndConquer(vector<ListNode*>& lists) {
-        ListNode* pre = lists[0];
-        for(int i=1;i<lists.size();i++)
-        {
-            pre = mergeTwoLists(pre,lists[i]);
-        }
-        return pre;
+    ListNode* divideAndConquer(vector<ListNode*>& lists, int left, int right) {
+        if (left == right) return lists[left];
+
+        int mid = left + (right - left) / 2;
+        ListNode* l1 = divideAndConquer(lists, left, mid);
+        ListNode* l2 = divideAndConquer(lists, mid + 1, right);
+        return mergeTwoLists(l1, l2);
     }
 };
