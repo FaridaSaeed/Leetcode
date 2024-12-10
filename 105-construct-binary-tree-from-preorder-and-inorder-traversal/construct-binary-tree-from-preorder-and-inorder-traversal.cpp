@@ -13,13 +13,13 @@ class Solution {
 
 private:
     int preorderIndex;
-    unordered_map<int, int> mapping;
+    unordered_map<int, int> mp;
 
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        mapping.clear();
+        mp.clear();
         for (int i = 0; i < inorder.size(); i++) {
-            mapping[inorder[i]] = i;
+            mp[inorder[i]] = i;
         }
 
         preorderIndex = 0;
@@ -31,7 +31,7 @@ public:
 
         int rootVal = preorder[preorderIndex++];
         TreeNode* root = new TreeNode(rootVal);
-        int mid = mapping[rootVal];
+        int mid = mp[rootVal];
 
         root->left = build(preorder, start, mid - 1);
         root->right = build(preorder, mid + 1, end);
