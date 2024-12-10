@@ -4,12 +4,10 @@ public:
     priority_queue <int, vector<int>, greater<int> > minheap; //stores max numbers
     MedianFinder() {}
     void addNum(int num) {
-        maxheap.push(num);
-        if(!minheap.empty() && !maxheap.empty() && maxheap.top()>minheap.top())
-        {
-            minheap.push(maxheap.top());
-            maxheap.pop();
-        }
+        if(maxheap.empty() || maxheap.top()>num)
+            maxheap.push(num);
+        else minheap.push(num);
+        
         if(maxheap.size()>minheap.size()+1)
         {
             minheap.push(maxheap.top());
