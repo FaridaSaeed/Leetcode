@@ -10,16 +10,13 @@ public:
         int c = 0,mx = 0;
         while(l<= r&& r<n)
         {
-            //cout<<l<<' '<<r<<' ';
             if(isVowl(s[r]))
             {
                 c++;
-                cout<<c<<' ';
                 mx = max(mx,c);
             }
             if(r-l+1==k)
             {
-                //cout<<c<<' ';
                 if(isVowl(s[l]))c--;
                 l++;
             }
