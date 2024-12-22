@@ -10,21 +10,23 @@
  */
 class Solution {
 public:
-    int pairSum(ListNode *head) {
-    ListNode *slow = head, *fast = head, *pre = NULL, *curr = head;
-    int ans = 0;
-    while (fast != NULL) {
-        fast = fast->next->next;
-        curr = slow;
-        slow = slow->next;
-        curr->next = pre;
-        pre = curr;
+    int pairSum(ListNode* head) {
+        ListNode* slow = head, *fast = head, *pre = NULL , *curr = head;
+        int ans = 0;
+        while(fast!=NULL)
+        {
+            fast = fast->next->next;
+            curr = slow;
+            slow = slow->next;
+            curr->next = pre;
+            pre = curr;
+        }
+        while(slow!=NULL)
+        {
+            ans = max(ans,curr->val+slow->val);
+            curr = curr->next;
+            slow = slow->next;
+        }
+        return ans;
     }
-    while (slow != NULL) {
-        ans = max(ans, pre->val + slow->val);
-        slow = slow->next;
-        pre = pre->next;
-    }
-    return ans;
-}
 };
