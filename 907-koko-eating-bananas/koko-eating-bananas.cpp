@@ -5,7 +5,7 @@ public:
         while(l<r)
         {
             mid = l+(r-l)/2;
-            long long x = 0;
+            int x = 0;
             for(auto i :piles)
             {
                 x+=(i+mid-1)/mid;
