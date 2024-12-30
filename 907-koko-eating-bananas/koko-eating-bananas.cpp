@@ -4,7 +4,7 @@ public:
         int l = 1 , r = 1e9,mid;
         while(l<r)
         {
-            mid = l+(r-l)/2;
+            mid = (r+l)/2;
             int x = 0;
             for(auto i :piles)
             {
