@@ -13,7 +13,7 @@ public:
         if(t1[i]==t2[j])
             ret = 1+dp(i+1,j+1);
         else 
-            ret = max({ret,dp(i+1,j),dp(i,j+1)});
+            ret = max(dp(i+1,j),dp(i,j+1));
         return ret;
     }
     int longestCommonSubsequence(string text1, string text2) {
