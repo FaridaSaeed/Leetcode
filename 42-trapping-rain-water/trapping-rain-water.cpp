@@ -6,13 +6,14 @@ public:
         int ans = 0;
         for(int i=0;i<n;i++)
         {
-            while(!st.empty() && height[i]>=height[st.top()])
+            while(!st.empty() && height[st.top()]<=height[i])
             {
-                int ind = st.top();
+                int mid = st.top();
                 st.pop();
                 if(!st.empty())
                 {
-                    ans+=(i-st.top()-1)*(min(height[st.top()],height[i])-height[ind]);
+                    int l = st.top();
+                    ans+=(i-l-1)*(min(height[i],height[l])-height[mid]);
                 }
             }
             st.push(i);
