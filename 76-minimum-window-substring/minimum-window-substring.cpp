@@ -5,7 +5,7 @@ public:
         for(auto i:t)mp[i]++;
         int l = 0 ,r = 0;
         int n = s.size();
-        int cnt = 0,mx = 1e9,mnl=0;
+        int cnt = 0,mx = 1e9,mnl=0,mnr=0;
         string ans;
         while(r<n)
         {
@@ -26,6 +26,7 @@ public:
                 {
                     mx = r-l;
                     mnl = l;
+                    mnr = r;
                 }
                 if(mps.find(s[l])!=mps.end()){
                     mps[s[l]]--;
@@ -34,8 +35,7 @@ public:
                 l++;
             }
         }
-        if(mx==1e9)mx = 0;
-        ans = s.substr(mnl,mx);
+        ans = s.substr(mnl,mnr-mnl);
         return ans;
     }
 };
