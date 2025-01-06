@@ -1,36 +1,41 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        unordered_map<char,int>mp,mps;
+        unordered_map<char,int>mps,mp;
         for(auto i:t)mp[i]++;
-        for(auto i:s)mps[i]++;
-        for(auto i:mp)if(mps[i.first]<i.second)return "";
+        int l = 0 ,r = 0;
         int n = s.size();
-        mps.clear();
-        int cnt = 0;
-        int l = 0,r = 0;
-        int ansl = 0,mn = 1e9;
-        int m = mp.size();
+        int cnt = 0,mx = 1e9,mnl=0;
+        string ans;
         while(r<n)
         {
-            mps[s[r]]++;
-            if(mp.find(s[r])!=mp.end() && mps[s[r]]==mp[s[r]] && cnt!=m)
-                cnt++;
-            if(cnt==m)
+            if(l==r && mp.find(s[r])==mp.end())
             {
-                while(mps[s[l]]>mp[s[l]])
-                {
-                    mps[s[l]]--;
-                    l++;
-                }
-                if(r-l+1<mn)
-                {
-                    mn = r-l+1;
-                    ansl = l;
-                }
+                l =++r;
+                continue;
+            }
+            if(mp.find(s[r])!=mp.end())
+            {
+                if(mps[s[r]]<mp[s[r]])cnt++;
+                mps[s[r]]++;
             }
             r++;
+            while(cnt==t.size())
+            {
+                if(r-l<mx)
+                {
+                    mx = r-l;
+                    mnl = l;
+                }
+                if(mps.find(s[l])!=mps.end()){
+                    mps[s[l]]--;
+                    if(mps[s[l]]<mp[s[l]])cnt--;
+                }
+                l++;
+            }
         }
-        return s.substr(ansl,mn);
+        if(mx==1e9)mx = 0;
+        ans = s.substr(mnl,mx);
+        return ans;
     }
 };
