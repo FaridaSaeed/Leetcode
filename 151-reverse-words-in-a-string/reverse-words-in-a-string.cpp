@@ -8,12 +8,13 @@ public:
             while(i<n && s[i]==' ')i++;
             while(i<n && s[i]!=' ')
                 s[right++] = s[i++];
+            while(i<n && s[i]==' ')i++;
             if(i==n)break;
             s[right++] = ' ';
 
         }
         s.resize(right);
-        if(s.back()==' ')s.pop_back();
+        //if(s.back()==' ')s.pop_back();
         n = s.size();
         reverse(s.begin(),s.end());
         while(r<n)
