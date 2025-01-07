@@ -1,34 +1,24 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        int n = nums.size();
-        map<int,int>mp;
-        for(auto i:nums)mp[i]++;
-        int sum = 0;
+        int target = 0,n = nums.size();
         sort(nums.begin(),nums.end());
-        set<vector<int>>st;
+        vector<vector<int>>ans;
         for(int i=0;i<n;i++)
         {
-            for(int j = i+1;j<n;j++)
+            if(i && nums[i]==nums[i-1])continue;
+            for(int j=i+1;j<n;j++)
             {
-                int x = 0-(nums[i]+nums[j]);
-                if(x>=nums[j])
+                if(j>i+1 && nums[j]==nums[j-1])continue;
+                int x = nums[i]+nums[j];
+                int ind = lower_bound(nums.begin()+j+1,nums.end(),-1*x)-nums.begin();
+                if(ind<n && nums[ind]+x==0)
                 {
-                    if(((x == nums[i] && x==nums[j]) && mp[x]>2) || (x != nums[i] && x!=nums[j] && mp[x]))
-                    {
-                        vector<int>v = {nums[i],nums[j],x};
-                        st.insert(v);
-                    }
-                    else if(((x != nums[i] && x==nums[j])||(x == nums[i] && x!=nums[j])) && mp[x]>1)
-                    {
-                        vector<int>v = {nums[i],nums[j],x};
-                        st.insert(v);
-                    }
+                    vector<int>res = {nums[i],nums[j],nums[ind]};
+                    ans.push_back(res);
                 }
             }
-        } 
-        vector<vector<int>>v;
-        v.assign(st.begin(),st.end());  
-        return v;  
+        }
+        return ans;
     }
 };
