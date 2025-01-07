@@ -1,20 +1,23 @@
+const int N = 3*1e5;
 class Solution {
 public:
     int maxFrequency(vector<int>& nums, int k, int numOperations) {
-        map<int, int>difArray, freq;
-        int low = 2e9, high = -2e9, ans = 1, prevSum = 0;
-        for(int i : nums){
-            freq[i] ++;
-            difArray[i - k] ++;
-            difArray[i + k + 1] --;
-            difArray[i] += 0;
+        map<int,int>mp,freq;
+        for(auto i:nums)
+        {
+            mp[i]++;
+            if(i-k<0)freq[0]++;
+            else freq[i-k]++;
+            freq[i+k+1]--;
+            freq[i] += 0;
         }
-        for(auto it : difArray){
-            it.second += prevSum;
-            prevSum = it.second;
-            int extra = it.second - freq[it.first];
-            extra = min(extra, numOperations);
-            ans = max(ans, extra + freq[it.first]);
+        int ans = 0;
+        int lst = 0;
+        for(auto i:freq)
+        {
+            i.second+=lst;
+            ans = max(ans,min(i.second,mp[i.first]+numOperations));
+            lst = i.second;
         }
         return ans;
     }
