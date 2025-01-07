@@ -16,7 +16,7 @@ public:
         int ans = 0;
         for(int i=1;i<=mx;i++){
             freq[i]+=freq[i-1];
-            ans = max(ans,mp[i]+min(freq[i]-mp[i],numOperations));
+            ans = max(ans,min(freq[i],mp[i]+numOperations));
         }
         return ans;
     }
