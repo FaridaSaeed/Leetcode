@@ -17,6 +17,7 @@ public:
                     vector<int>res = {nums[i],nums[j],nums[k]};
                     ans.push_back(res);
                     j++;
+                    k--;
                     while(j<k && nums[j]==nums[j-1])j++;
                 }
             }
