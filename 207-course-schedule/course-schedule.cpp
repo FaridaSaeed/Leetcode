@@ -6,25 +6,22 @@ public:
     bool cycled;
     void dfs_cycled(int node)
     {
-        
+        vis[node] = true ;   
+        parent[node] = true;     
         for (auto i: adj[node] )
         {
-            if (parent[i])
-                cycled=true ;
-            else if (!vis[i])
-            {
-                parent[node] = true ;
+            if(parent[i])cycled = true; 
+            if (!vis[i])
+            {  
                 dfs_cycled(i);
             }
         }
-        vis[node] = true ;
-        parent[node] = false ;
+        parent[node] = false;
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vis.resize(numCourses+2,0);
         adj.resize(numCourses+2);
         parent.resize(numCourses+2,0);
-
         cycled = false;
         for(auto i:prerequisites)
         {
