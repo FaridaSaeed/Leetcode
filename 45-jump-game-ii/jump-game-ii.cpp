@@ -1,25 +1,20 @@
-const int N = 1e4+2;
+const int N = 1e4+5;
 class Solution {
 public:
     int mem[N];
-    int n;
-    vector<int>num;
-    int dp(int i)
+    int dp(int ind,int n,vector<int>&nums)
     {
-        if(i>=n-1)return 0;
-        int &ret = mem[i];
+        if(ind>=n-1)return 0;
+        int &ret = mem[ind];
         if(~ret)return ret;
         ret = 1e5;
-        for(int j=1;j<=num[i];j++)
-        {
-            ret = min(ret,1+dp(i+j));
-        }
+        for(int i=1;i<=nums[ind];i++)
+            ret = min(ret,1+dp(i+ind,n,nums));
         return ret;
     }
     int jump(vector<int>& nums) {
-        n = nums.size();
-        num = nums;
         memset(mem,-1,sizeof mem);
-        return dp(0);
+        int n = nums.size();
+        return dp(0,n,nums);
     }
 };
