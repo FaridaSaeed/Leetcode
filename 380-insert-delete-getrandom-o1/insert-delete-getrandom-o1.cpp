@@ -5,7 +5,7 @@ private:
 public:
 
     RandomizedSet() {
-        set = {};
+        //set = {};
     }
     
     bool insert(int val) {
