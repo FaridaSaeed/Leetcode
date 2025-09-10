@@ -8,9 +8,11 @@ public:
             if(st.find(i-1)==st.end())
             {
                 int len = 1;
+                int x = i;
                 while(st.find(i+len)!=st.end())
                 {
                     len++;
+                    x++;
                 }
                 mx = max(mx,len);
             }
