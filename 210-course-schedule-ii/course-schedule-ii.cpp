@@ -1,55 +1,46 @@
+const int N = 2005;
 class Solution {
 public:
+    vector<int>adj[N];
+    bool vis[N];
+    bool par[N];
     vector<int>ans;
-    vector<vector<int>>adj;
-    vector<bool>vis;
-    vector<bool>parent;
-    bool cycled;
-    void dfs_cycled(int node)
+    bool cycle;
+    bool dfsCycle(int x)
     {
-        for (auto i: adj[node] )
+        vis[x] = true;
+        par[x] = true;
+        for(auto i:adj[x])
         {
-            if (parent[i])
-                cycled=true ;
-            else if (!vis[i])
-            {
-                parent[node] = true ;
-                dfs_cycled(i);
+            if(par[i])
+                return true;
+            else if(!vis[i] && dfsCycle(i)) {
+
+                return true;
             }
         }
-        vis[node] = true ;
-        parent[node] = false ;
+        par[x] = false;
+        return false;
+
     }
-    void dfs(int c)
+    void dfs(int x)
     {
-        vis[c] = true;
-        for(auto i:adj[c])
-        {
-            if (parent[i])
-                cycled=true ;
-            else if(!vis[i])
-            {
-                parent[c] = true ;
+        for(auto i:adj[x])
+            if(!vis[i])
                 dfs(i);
-            }
-        }
-        parent[c] = false ;
-        ans.push_back(c);
+        vis[x] = true;
+        ans.push_back(x);
     }
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vis.resize(numCourses+5);
-        adj.resize(numCourses+5);
-        parent.resize(numCourses+2,0);
-
-        cycled = false;
         for(auto i:prerequisites)
-        {
-            adj[i[1]].push_back(i[0]);
-        }
-        for(int i=0;i<numCourses;i++)if(!vis[i])dfs(i);
-        vector<int>v;
-        if(cycled)return v;
-        reverse(ans.begin(),ans.end());
+            adj[i[0]].push_back(i[1]);
+        
+        for(int i=0;i<numCourses;i++)
+            if(!vis[i])
+                if(dfsCycle(i)) return ans;
+        memset(vis,0,sizeof vis);
+        for(int i=0;i<numCourses;i++)
+            if(!vis[i]) dfs(i);
         return ans;
     }
 };
