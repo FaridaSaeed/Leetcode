@@ -1,19 +1,13 @@
-const int N = 50;
 class Solution {
 public:
-    int mem[N];
-    int dp(int n)
-    {
-        if(n==0)return 1;
-        int &ret = mem[n];
-        if(~ret)return ret;
-        if(n>1)
-            ret = dp(n-1)+dp(n-2);
-        else ret = dp(n-1);
-        return ret;
-    }
     int climbStairs(int n) {
-        memset(mem,-1,sizeof mem);
-        return dp(n);
+        if(n==0 || n==1)return 1;
+        vector<int>dp(n+1);
+        dp[0] = dp[1] = 1;
+        for(int i=2;i<=n;i++)
+        {
+            dp[i] = dp[i-1]+dp[i-2];
+        }
+        return dp[n];
     }
 };
