@@ -3,16 +3,13 @@ int mem[N][2][3];
 int n;
 int dp(int i,int x,int tran,vector<int>& prices)
 {
-    if(i>=n)return 0;
-    if(tran>=2)return 0;
+    if(i>=n || tran>=2)return 0;
     int &ret = mem[i][x][tran];
     if(~ret)return ret;
-    ret = 0;
-    ret = max(ret,dp(i+1,x,tran,prices));
-    if(x==0)ret=max(ret,prices[i]+dp(i+1,1,tran+1,prices));
-    else if(x==1)ret = max(ret,-prices[i]+dp(i+1,0,tran,prices));
     
-    
+    if(x==1)
+        ret = max(dp(i+1,0,tran,prices)-prices[i],dp(i+1,1,tran,prices));
+    else ret = max(dp(i+1,0,tran,prices), prices[i]+dp(i+1,1,tran+1,prices));
     return ret;
 }
 class Solution {
