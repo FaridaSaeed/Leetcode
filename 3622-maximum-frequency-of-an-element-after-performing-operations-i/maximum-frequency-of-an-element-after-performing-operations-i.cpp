@@ -4,9 +4,8 @@ public:
     int maxFrequency(vector<int>& nums, int k, int numOperations) {
         unordered_map<int,int>mp;
         int N =0;
-        for(auto i:nums)N = max(N,i);
-        N*=3;
-        N+=k;
+        for(auto i:nums)N = max(N,i+k+2);
+        N*=2;
         vector<int>v(N);
         for(auto i:nums){
             mp[i]++;
