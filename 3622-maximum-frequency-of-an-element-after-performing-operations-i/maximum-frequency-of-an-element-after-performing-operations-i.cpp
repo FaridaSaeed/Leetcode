@@ -1,23 +1,27 @@
-const int N = 3*1e5;
+
 class Solution {
 public:
     int maxFrequency(vector<int>& nums, int k, int numOperations) {
-        vector<int>freq(N);
-        int mx = 0;
         unordered_map<int,int>mp;
-        for(auto i:nums)
-        {
+        int N =0;
+        for(auto i:nums)N = max(N,i);
+        N*=3;
+        N+=k;
+        vector<int>v(N);
+        for(auto i:nums){
             mp[i]++;
-            if(i-k<0)freq[0]++;
-            else freq[i-k]++;
-            freq[i+k+1]--;
-            mx = max(mx,i+k);
+            v[i+k+1]--;
+            if(i-k<0)v[0]++;
+            else v[i-k]++;
         }
         int ans = 0;
-        for(int i=1;i<=mx;i++){
-            freq[i]+=freq[i-1];
-            ans = max(ans,min(freq[i],mp[i]+numOperations));
+        for(int i=1;i<N;i++)
+        {
+            v[i]+=v[i-1];
+            ans = max(ans,mp[i] + min(v[i]-mp[i],numOperations));
         }
         return ans;
+
     }
+
 };
