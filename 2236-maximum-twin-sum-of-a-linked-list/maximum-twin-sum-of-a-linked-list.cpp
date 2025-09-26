@@ -11,29 +11,21 @@
 class Solution {
 public:
     int pairSum(ListNode* head) {
-        vector<int>twin;
-        ListNode* slow = head->next,*fast = head->next->next;
-        int n = 1,ans = 0;
-        twin.push_back(head->val);
+        ListNode* slow = head,*fast = head,*curr = head,*pre = NULL;
+        int ans = 0;
+        while(fast!=NULL)
+        {
+            fast = fast->next->next;
+            curr = slow;
+            slow = slow->next;
+            curr->next = pre;
+            pre = curr;
+        }
         while(slow!=NULL)
         {
-            if(fast!=NULL)
-            {
-                twin.push_back(slow->val);
-                n++;
-                fast = fast->next->next;
-                slow = slow->next;
-            }
-            if(fast==NULL)
-            {
-                n--;
-                if(slow!=NULL)
-                {
-                    twin[n] += slow->val;  
-                    ans = max(ans,twin[n]);
-                }
-                slow = slow->next;
-            }
+            ans = max(ans,slow->val+curr->val);
+            slow = slow->next;
+            curr = curr->next;
             
         }
         return ans;
