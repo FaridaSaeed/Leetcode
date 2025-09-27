@@ -18,23 +18,19 @@ public:
         while(k--)
         {
             pair<int,int>p = pq.top();
-            cout<<p.first<<' '<<p.second<<' ';
             pq.pop();
             ans+=p.first;
             int i = p.second;
             if(left+1>=right){
-                cout<<'\n';
                 continue;
             }
             if(i<=left){
                 left++;
                 pq.push({costs[left],left});
-                cout<<costs[left]<<'\n';
             }
             else{
                 right--;
                 pq.push({costs[right],right});
-                cout<<costs[right]<<'\n';
             }
             
         }
