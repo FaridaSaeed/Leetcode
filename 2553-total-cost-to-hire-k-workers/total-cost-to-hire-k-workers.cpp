@@ -1,38 +1,36 @@
 class Solution {
 public:
     long long totalCost(vector<int>& costs, int k, int candidates) {
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        priority_queue<int, vector<int>, greater<int>>pqleft, pqright;
         int n = costs.size();
-        int left = candidates-1, right = n-candidates;
+        if(candidates>n/2)candidates = (n+1)/2;
+        int left = candidates, right = n-candidates-1;
         for(int i=0;i<n;i++)
         {
-            if(i<candidates || n-i-1<candidates)
-            {
-                if(i<candidates)
-                    pq.push({costs[i],left});
-                else 
-                    pq.push({costs[i],right});
-            }
+            if(i<candidates)
+                pqleft.push(costs[i]);
+            else if(n-i-1<candidates)
+                pqright.push(costs[i]);
+            
         }
         long long ans = 0;
         while(k--)
         {
-            pair<int,int>p = pq.top();
-            pq.pop();
-            ans+=p.first;
-            int i = p.second;
-            if(left+1>=right){
-                continue;
+            int l = pqleft.empty()?INT_MAX:pqleft.top();
+            int r = pqright.empty()?INT_MAX:pqright.top();
+            ans+=min(l,r);
+            if(l<=r)
+            {
+                pqleft.pop();
+                if(left>right)continue;
+                pqleft.push(costs[left++]);
             }
-            if(i<=left){
-                left++;
-                pq.push({costs[left],left});
-            }
-            else{
-                right--;
-                pq.push({costs[right],right});
-            }
-            
+            else 
+            {
+                pqright.pop();
+                if(left>right)continue;
+                pqright.push(costs[right--]);
+            }   
         }
         return ans;
     }
