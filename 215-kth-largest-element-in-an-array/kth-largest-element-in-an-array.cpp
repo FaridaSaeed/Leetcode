@@ -4,7 +4,7 @@ public:
     priority_queue<int> pq;
     for(int i:nums)
       pq.push(i);
-    while(k-->1)
+    while(--k)
       pq.pop();
     return pq.top();
   }
